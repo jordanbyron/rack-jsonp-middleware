@@ -27,7 +27,7 @@ module Rack
         json = ""
         body.each { |s| json << s }
         body = ["/**/#{callback}(#{json});"]
-        headers['Content-Length'] = Rack::Utils.bytesize(body[0]).to_s
+        headers['Content-Length'] = body[0].bytesize.to_s
         headers['Content-Type'] = headers['Content-Type'].sub(/^[^;]+(;?)/, "#{MIME_TYPE}\\1")
       end
 
@@ -35,7 +35,7 @@ module Rack
     end
 
   protected
-    
+
     # Do not allow arbitrary Javascript in the callback.
     #
     # @return [Regexp]
